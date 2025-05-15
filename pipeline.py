@@ -18,8 +18,8 @@ print("🚀 Iniciando a aplicação Streamlit...")
 
 # Executa o Streamlit diretamente dentro do Python
 # Alternativamente, poderia usar subprocess com: 
-#subprocess.run(["streamlit", "run", CAMINHO_APP])
-streamlit.web.bootstrap.run(CAMINHO_APP, [], {})
+subprocess.run(["streamlit", "run", CAMINHO_APP])
+#streamlit.web.bootstrap.run(CAMINHO_APP, [], {})
 
 '''
 from streamlit import config as _config
