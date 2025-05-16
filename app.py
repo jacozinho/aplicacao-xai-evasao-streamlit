@@ -72,7 +72,7 @@ if arquivo and modelo_escolhido:
             st.code(relatorio)
             st.pyplot(matriz)
 
-        metodo = st.radio("Método de explicação", ["lime"])
+        metodo = st.radio("Método de explicação", ["shap","lime"])
         explicar_modelo(modelo, X_proc, metodo=metodo, nomes_features=df.columns.tolist())
 
         st.download_button("📥 Baixar Resultados", df_resultado.to_csv(index=False), file_name="resultados.csv")
