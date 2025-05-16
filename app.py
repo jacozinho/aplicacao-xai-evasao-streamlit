@@ -13,6 +13,8 @@
 
 import streamlit as st
 import pandas as pd
+import subprocess
+import os
 from utils import (
     carregar_dados,
     listar_modelos,
@@ -26,6 +28,14 @@ from explicadores import explicar_modelo
 st.set_page_config(page_title="XAI Genérico", layout="wide")
 st.title("🧠 Predição com XAI — Plataforma Flexível")
 
+# 📌 Etapa opcional: Treinamento sob demanda
+with st.expander("🔧 Treinar modelos (opcional)", expanded=False):
+    if st.button("🔄 Treinar modelos agora"):
+        with st.spinner("Treinando..."):
+            resultado = subprocess.run(["python", "executar_batch_modelos.py"], capture_output=True, text=True)
+            st.success("✅ Modelos treinados com sucesso!")
+            st.code(resultado.stdout)
+
 # 📦 Seleção de modelo
 st.sidebar.header("⚙️ Selecione o Modelo")
 modelos_disponiveis = listar_modelos()
@@ -38,8 +48,9 @@ arquivo = st.sidebar.file_uploader("Selecione um arquivo CSV", type=["csv"])
 # 🔄 Interação principal
 if arquivo and modelo_escolhido:
     df = carregar_dados(arquivo)
-    df.drop('Unnamed: 0', axis=1, inplace=True)
-    
+    if 'Unnamed: 0' in df.columns:
+        df.drop('Unnamed: 0', axis=1, inplace=True)
+
     st.subheader("📋 Pré-visualização dos Dados")
     st.dataframe(df.head())
 
