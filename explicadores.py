@@ -20,13 +20,14 @@ import matplotlib.pyplot as plt
 
 def explicar_modelo(modelo, X, metodo="shap", nomes_features=None):
     if metodo == "shap":
-        st.markdown("### 🔍 Explicação com SHAP")
-        
+        st.markdown("### 🔍 Explicação com SHAP")        
         try:
+            fig, ax = plt.subplots()
+            ax.scatter([1, 2, 3], [1, 2, 3])
             explainer = shap.Explainer(modelo, X)
             shap_values = explainer(X)
             shap.plots.beeswarm(shap_values, show=False)
-            st.pyplot()
+            st.pyplot(fig)
         except Exception as e:
             st.error(f"Erro com SHAP: {e}")        
     elif metodo == "lime":
