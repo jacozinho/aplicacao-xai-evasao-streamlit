@@ -1,1 +1,1 @@
-# aplicacao-xai-evasao-streamlit
+# Aplicação de XAI no enfrentamento da evasão escolar
